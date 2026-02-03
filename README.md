@@ -19,7 +19,7 @@ To facilitate the post-editing process by providing a side-by-side comparison of
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/TU_USUARIO/stuff-im-testing.git](https://github.com/TU_USUARIO/stuff-im-testing.git)
+    git clone (https://github.com/MattSwift12/Just-stuff-i-m-testing.git)
     cd stuff-im-testing
     ```
 
