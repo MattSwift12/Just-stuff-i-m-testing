@@ -46,4 +46,4 @@ To facilitate the post-editing process by providing a side-by-side comparison of
 * [ ] Sentiment analysis of the source text.
 
 ---
-*Created by [Tu Nombre] - Exploring the intersection of Language and Code.*
+Nicolai Arbildo - or MattSwift(12) in almost all platforms
