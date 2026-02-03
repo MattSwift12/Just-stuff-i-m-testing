@@ -1,0 +1,72 @@
+import streamlit as st
+from deep_translator import GoogleTranslator, MyMemoryTranslator
+
+# --- Configuración de la página ---
+st.set_page_config(page_title="Comparador de Traducción", layout="wide", page_icon="🤖")
+
+# --- Título y Descripción ---
+st.title("🤖 Comparador de Motores de Traducción")
+st.markdown("""
+Esta herramienta permite comparar la calidad de traducción de diferentes motores 
+de Inteligencia Artificial en tiempo real. Ideal para post-edición y análisis lingüístico.
+""")
+
+# --- Barra Lateral (Sidebar) ---
+with st.sidebar:
+    st.header("⚙️ Configuración")
+    st.write("Selecciona los idiomas:")
+    
+    # Diccionario de idiomas (puedes añadir más códigos ISO 639-1)
+    languages = {
+        'Español': 'es', 
+        'Inglés': 'en', 
+        'Chino (Simplificado)': 'zh-CN', 
+        'Francés': 'fr', 
+        'Alemán': 'de',
+        'Italiano': 'it',
+        'Portugués': 'pt'
+    }
+    
+    source_lang_name = st.selectbox("Idioma de origen", list(languages.keys()), index=0)
+    target_lang_name = st.selectbox("Idioma de destino", list(languages.keys()), index=1)
+
+    # Obtenemos los códigos (ej. 'es', 'en')
+    source_code = languages[source_lang_name]
+    target_code = languages[target_lang_name]
+    
+    st.divider()
+    st.info("Desarrollado con Python y Streamlit.")
+
+# --- Área Principal ---
+st.subheader("Texto Original")
+source_text = st.text_area("Ingresa el texto a traducir:", height=150, placeholder="Escribe o pega tu texto aquí...")
+
+# Botón de acción
+if st.button("🚀 Traducir ahora", type="primary"):
+    if source_text:
+        st.divider()
+        st.subheader("Resultados Comparativos")
+        
+        # Creamos columnas para ver los resultados uno al lado del otro
+        col1, col2 = st.columns(2)
+
+        # MOTOR 1: Google Translate
+        with col1:
+            st.markdown("### 🔵 Google Translate")
+            try:
+                trans_google = GoogleTranslator(source=source_code, target=target_code).translate(source_text)
+                st.success(trans_google)
+            except Exception as e:
+                st.error(f"Error de conexión: {e}")
+
+        # MOTOR 2: MyMemory (Memoria de traducción colaborativa)
+        with col2:
+            st.markdown("### 🟠 MyMemory (Human/Machine)")
+            try:
+                trans_memory = MyMemoryTranslator(source=source_code, target=target_code).translate(source_text)
+                st.info(trans_memory)
+            except Exception as e:
+                st.warning(f"No se encontró coincidencia o error: {e}")
+                
+    else:
+        st.warning("⚠️ Por favor ingresa un texto para comenzar.")
